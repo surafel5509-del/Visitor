@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-vistora-yellow: #FFD21F;
+    --color-vistora-yellow-hover: #F2C410;
+    --color-vistora-yellow-secondary: #FFDF4D;
+    --color-vistora-yellow-soft: #FFF4B8;
+    --color-vistora-dark: #171717;
+    --color-vistora-secondary: #666666;
+    --color-vistora-border: #EAEAEA;
+    --color-vistora-dark-bg: #111111;
+    --color-vistora-dark-card: #1B1B1B;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Cabinet Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+/* Hide scrollbar for horizontal chips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom transitions and glass overlay */
+.backdrop-blur-subtle {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Disable native mobile browser context menus & callouts on all images and videos */
+img, video, canvas, [data-no-callout] {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+

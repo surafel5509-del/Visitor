@@ -1,0 +1,6 @@
+{
+  "name": "VISTORA",
+  "description": "Global visual discovery and inspiration platform to search, discover, save, organize, and share photos, videos, and visual ideas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

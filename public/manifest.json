@@ -1,0 +1,17 @@
+{
+  "name": "VISTORA",
+  "short_name": "Vistora",
+  "description": "Global visual discovery and inspiration platform to search, discover, save, organize, and share photos, videos, and visual ideas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFD21F",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
