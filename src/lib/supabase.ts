@@ -2,8 +2,11 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { UserProfile } from '../types';
 
 const env = (import.meta as unknown as { env?: Record<string, string> }).env || {};
-const supabaseUrl = env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY || '';
+
+// Public client configuration: Vite env vars override these values when configured in Vercel.
+// The Supabase publishable key is safe for browser use; never put a service-role key here.
+const supabaseUrl = env.VITE_SUPABASE_URL || 'https://adgonsebgrypnsapopqb.supabase.co';
+const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_zhGC53-0p-zSK451U-i6ig_dcm1u9NM';
 
 export const isSupabaseConfigured = () => Boolean(supabaseUrl && supabaseAnonKey);
 
