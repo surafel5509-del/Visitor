@@ -50,6 +50,13 @@ export async function signUpWithSupabase(email: string, password: string, displa
     const { data, error } = await supabase.auth.signUp({ email: cleanEmail, password, options: { data: { display_name: displayName.trim(), username: cleanUsername, avatar_url: avatarFallback } } });
     if (error) return { success: false, error: error.message };
     if (!data.user) return { success: false, error: 'Account could not be created.' };
+
+    // VISTORA requires a verified email before an account becomes active.
+    if (!data.user.email_confirmed_at) {
+      await supabase.auth.signOut();
+      return { success: false, error: 'Account created. Please verify your email address from the verification email before signing in.' };
+    }
+
     const profile = await loadProfile(data.user);
     localStorage.setItem(LOCAL_USER_STORAGE_KEY, JSON.stringify(profile));
     return { success: true, user: profile, isCloudAuth: true };
@@ -62,6 +69,12 @@ export async function signInWithSupabase(email: string, password: string): Promi
     const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
     if (error) return { success: false, error: error.message };
     if (!data.user) return { success: false, error: 'Invalid account session.' };
+
+    if (!data.user.email_confirmed_at) {
+      await supabase.auth.signOut();
+      return { success: false, error: 'Please verify your email address before signing in.' };
+    }
+
     const profile = await loadProfile(data.user);
     localStorage.setItem(LOCAL_USER_STORAGE_KEY, JSON.stringify(profile));
     return { success: true, user: profile, isCloudAuth: true };
@@ -77,6 +90,11 @@ export async function getCurrentUserProfile(): Promise<UserProfile | null> {
   if (!isSupabaseConfigured()) return null;
   const { data } = await supabase.auth.getUser();
   if (!data.user) return null;
+  if (!data.user.email_confirmed_at) {
+    await supabase.auth.signOut();
+    localStorage.removeItem(LOCAL_USER_STORAGE_KEY);
+    return null;
+  }
   const profile = await loadProfile(data.user);
   localStorage.setItem(LOCAL_USER_STORAGE_KEY, JSON.stringify(profile));
   return profile;
